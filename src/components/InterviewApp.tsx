@@ -300,16 +300,20 @@ const InterviewApp: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-accent to-background p-4">
+    <div className="min-h-screen bg-gradient-to-br from-background to-accent/20 p-4">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-screen">
           {/* Main Interview Panel */}
           <div className="lg:col-span-2 flex flex-col gap-6">
             {/* Header */}
-            <Card className="p-6 shadow-card">
+            <Card className="p-6 shadow-card bg-gradient-to-br from-card to-card/50 border-primary/20">
               <div className="flex items-center justify-between">
                 <div>
-                  <h1 className="text-3xl font-bold text-foreground">AI Interview</h1>
+                  <h1 className="text-3xl font-bold">
+                    <span className="bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">
+                      AI Interview
+                    </span>
+                  </h1>
                   <p className="text-muted-foreground mt-1">Professional Video Interview Platform</p>
                 </div>
                 <div className="flex items-center gap-2">
@@ -324,8 +328,8 @@ const InterviewApp: React.FC = () => {
             </Card>
 
             {/* Video Preview */}
-            <Card className="flex-1 p-6 shadow-card">
-              <div className="relative w-full h-full min-h-96 bg-muted rounded-lg overflow-hidden">
+            <Card className="flex-1 p-6 shadow-card bg-gradient-to-br from-card to-card/50 border-primary/20">
+              <div className="relative w-full h-full min-h-96 bg-muted/50 rounded-lg overflow-hidden border border-primary/10">
                 {state !== 'idle' ? (
                   <video
                     ref={videoRef}
@@ -358,7 +362,7 @@ const InterviewApp: React.FC = () => {
                   <Button 
                     onClick={startInterview}
                     size="lg"
-                    className="bg-gradient-to-r from-primary to-primary-glow hover:shadow-interview transition-all duration-300"
+                    className="bg-gradient-to-r from-primary to-primary-glow hover:shadow-purple transition-all duration-300"
                   >
                     Start Interview
                   </Button>
@@ -398,7 +402,7 @@ const InterviewApp: React.FC = () => {
 
             {/* Audio Player for Bot Questions */}
             {currentBotAudio && (
-              <Card className="p-4 shadow-card">
+              <Card className="p-4 shadow-card bg-gradient-to-br from-card to-card/50 border-primary/20">
                 <div className="flex items-center gap-4">
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <div className="w-2 h-2 bg-primary rounded-full" />
@@ -417,8 +421,8 @@ const InterviewApp: React.FC = () => {
 
           {/* Conversation History */}
           <div className="lg:col-span-1">
-            <Card className="h-full p-6 shadow-card">
-              <h2 className="text-xl font-semibold mb-4">Interview Progress</h2>
+            <Card className="h-full p-6 shadow-card bg-gradient-to-br from-card to-card/50 border-primary/20">
+              <h2 className="text-xl font-semibold mb-4 text-foreground">Interview Progress</h2>
               <div className="space-y-4 max-h-96 overflow-y-auto">
                 {conversation.length === 0 ? (
                   <p className="text-muted-foreground text-center py-8">
@@ -430,15 +434,15 @@ const InterviewApp: React.FC = () => {
                       key={entry.id}
                       className={`p-4 rounded-lg ${
                         entry.type === 'bot' 
-                          ? 'bg-accent border-l-4 border-primary' 
-                          : 'bg-muted border-l-4 border-recording'
+                          ? 'bg-accent/20 border-l-4 border-primary' 
+                          : 'bg-muted/30 border-l-4 border-recording'
                       }`}
                     >
                       <div className="flex items-center gap-2 mb-2">
                         <div className={`w-2 h-2 rounded-full ${
                           entry.type === 'bot' ? 'bg-primary' : 'bg-recording'
                         }`} />
-                        <span className="text-sm font-medium">
+                        <span className="text-sm font-medium text-foreground">
                           {entry.type === 'bot' ? 'Interviewer' : 'You'}
                         </span>
                         <span className="text-xs text-muted-foreground">
@@ -447,7 +451,7 @@ const InterviewApp: React.FC = () => {
                       </div>
                       
                       {entry.transcript && (
-                        <p className="text-sm mb-2">{entry.transcript}</p>
+                        <p className="text-sm mb-2 text-card-foreground">{entry.transcript}</p>
                       )}
                       
                       {entry.audioUrl && (
@@ -457,7 +461,7 @@ const InterviewApp: React.FC = () => {
                       {entry.videoUrl && entry.type === 'user' && (
                         <video 
                           controls 
-                          className="w-full rounded" 
+                          className="w-full rounded border border-primary/10" 
                           src={entry.videoUrl}
                           style={{ maxHeight: '120px' }}
                         />
